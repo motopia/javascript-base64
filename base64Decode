@@ -1,0 +1,24 @@
+	function base64Decode(decodeStr){
+		if(!decodeStr) return ;
+		var base64IndexTable = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+		var BitPattern='',trueDecodeStr =decodeStr.substring(0,decodeStr.indexOf("=")), 
+			blockNumber= decodeStr.substring(decodeStr.indexOf("=")).length,result='';
+		for (var i = 0; i < trueDecodeStr.length; i++) {
+			//得到每个base64字符的索引
+			var base64Index =base64IndexTable.indexOf(trueDecodeStr[i]);
+			var binaryStr = (base64Index).toString(2),newBinaryStr='',newBlockBinaryStr='';
+			for (var j = 0; j < 6-binaryStr.length; j++) {
+				newBinaryStr += '0';
+			}
+			binaryStr = newBinaryStr+binaryStr;
+			BitPattern += binaryStr;
+		}
+
+		BitPattern =BitPattern.substring(0,BitPattern.length-2*blockNumber);
+
+		for (var i = 0; i < BitPattern.length/8; i++) {
+			var ASCIIChar = parseInt(BitPattern.substring(8*i,8*(i+1)),2);
+				result += String.fromCharCode(ASCIIChar)
+		}
+		return result;
+	}
