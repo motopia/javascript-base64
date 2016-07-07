@@ -1,0 +1,38 @@
+
+	function base64Encode(encodeStr){
+		if(!encodeStr) return ;
+		var BitPattern = '',result = '';
+		var leastSignificantBits = ''
+		var base64IndexTable = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+		for (var i = 0; i < encodeStr.length; i++) {
+			var ASCIIChar = encodeStr.charCodeAt(i);
+			var binaryStr = (ASCIIChar).toString(2);
+			for (var j = 0; j < 8-binaryStr.length; j++) {
+				binaryStr='0'+binaryStr;
+			}
+			BitPattern += binaryStr;
+		}
+		if(BitPattern.length%24==0){
+			for (var i = 0; i < BitPattern.length/6; i++) {
+				var singleBase64CharIndex = parseInt(BitPattern.substring(6*i,6*(i+1)),2);
+				result += base64IndexTable[singleBase64CharIndex];
+			}
+		}else{
+		    var blockNumber = Math.floor((24-BitPattern.length%24)/6)
+		    var buchong = (24-BitPattern.length%24)%6;
+			for (var j = 0; j < buchong; j++) {
+				BitPattern +='0';
+			}
+			for (var i = 0; i < BitPattern.length/6; i++) {
+				var singleBase64CharIndex = parseInt(BitPattern.substring(6*i,6*(i+1)),2);
+				result += base64IndexTable[singleBase64CharIndex];
+			}
+			for (var j = 0; j < blockNumber; j++) {
+				result +='=';
+			}
+		}
+		console.log(result);
+		return result ;
+		
+	}
+	base64Encode('easure.');
