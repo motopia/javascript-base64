@@ -1,4 +1,3 @@
-
 	function base64Encode(encodeStr){
 		if(!encodeStr) return ;
 		var BitPattern = '',result = '';
@@ -6,10 +5,11 @@
 		var base64IndexTable = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 		for (var i = 0; i < encodeStr.length; i++) {
 			var ASCIIChar = encodeStr.charCodeAt(i);
-			var binaryStr = (ASCIIChar).toString(2);
+			var binaryStr = (ASCIIChar).toString(2),newBinaryStr='';
 			for (var j = 0; j < 8-binaryStr.length; j++) {
-				binaryStr='0'+binaryStr;
+				newBinaryStr += '0';
 			}
+			binaryStr = newBinaryStr+binaryStr;
 			BitPattern += binaryStr;
 		}
 		if(BitPattern.length%24==0){
@@ -31,8 +31,5 @@
 				result +='=';
 			}
 		}
-		console.log(result);
 		return result ;
-		
 	}
-	base64Encode('easure.');
