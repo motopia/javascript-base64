@@ -1,2 +1,2 @@
 # base64Encode
-use base64encode encode string to base64 fomarts
+This project is to write the two functions, one for javascript string base64 encoding, decoding a base64 string
